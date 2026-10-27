@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Typing Club - Learn Touch Typing</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- Font Awesome for Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+  <!-- Top Navigation Bar -->
+  <header class="navbar">
+    <div class="logo">
+      <i class="fa-solid fa-keyboard"></i> Typing<span>Club</span>
+    </div>
+    <div class="nav-stats">
+      <div class="stat-badge"><i class="fa-solid fa-star"></i> <span id="total-stars">0</span> Stars</div>
+      <div class="stat-badge"><i class="fa-solid fa-trophy"></i> Level <span id="current-level-num">1</span></div>
+      <button id="btn-home" class="btn-secondary hidden"><i class="fa-solid fa-house"></i> Lessons Map</button>
+    </div>
+  </header>
+
+  <main class="container">
+    
+    <!-- LESSON MAP VIEW (Level Selection Screen) -->
+    <section id="lesson-map-view" class="view active">
+      <div class="map-header">
+        <h1>Touch Typing Roadmap</h1>
+        <p>Master key by key. Earn up to 5 stars per lesson!</p>
+      </div>
+      <div class="lessons-grid" id="lessons-grid">
+        <!-- Lessons generated dynamically via JavaScript -->
+      </div>
+    </section>
+
+    <!-- TYPING ARENA VIEW (Interactive Practice Screen) -->
+    <section id="typing-arena-view" class="view">
+      
+      <!-- Stats Dashboard -->
+      <div class="arena-stats">
+        <div class="stat-box">
+          <span class="label">SPEED</span>
+          <span class="value" id="live-wpm">0</span> <span class="unit">WPM</span>
+        </div>
+        <div class="stat-box">
+          <span class="label">ACCURACY</span>
+          <span class="value" id="live-accuracy">100</span> <span class="unit">%</span>
+        </div>
+        <div class="stat-box">
+          <span class="label">PROGRESS</span>
+          <div class="progress-bar-bg">
+            <div id="progress-bar-fill" class="progress-bar-fill"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Finger Indicator Banner -->
+      <div class="finger-guide-banner" id="finger-guide-text">
+        Use your <span id="target-finger-name">Left Index Finger</span> to press <b id="target-key-display">f</b>
+      </div>
+
+      <!-- Lesson Text Box -->
+      <div class="text-display-card" id="text-display">
+        <!-- Text rendered dynamically -->
+      </div>
+
+      <!-- Interactive QWERTY Keyboard -->
+      <div class="keyboard" id="keyboard">
+        <!-- Row 1 -->
+        <div class="row">
+          <div class="key" data-key="`">`</div>
+          <div class="key" data-key="1">1</div>
+          <div class="key" data-key="2">2</div>
+          <div class="key" data-key="3">3</div>
+          <div class="key" data-key="4">4</div>
+          <div class="key" data-key="5">5</div>
+          <div class="key" data-key="6">6</div>
+          <div class="key" data-key="7">7</div>
+          <div class="key" data-key="8">8</div>
+          <div class="key" data-key="9">9</div>
+          <div class="key" data-key="0">0</div>
+          <div class="key" data-key="-">-</div>
+          <div class="key" data-key="=">=</div>
+          <div class="key key-wide" data-key="Backspace">Delete</div>
+        </div>
+        <!-- Row 2 -->
+        <div class="row">
+          <div class="key key-wide" data-key="Tab">Tab</div>
+          <div class="key" data-key="q">Q</div>
+          <div class="key" data-key="w">W</div>
+          <div class="key" data-key="e">E</div>
+          <div class="key" data-key="r">R</div>
+          <div class="key" data-key="t">T</div>
+          <div class="key" data-key="y">Y</div>
+          <div class="key" data-key="u">U</div>
+          <div class="key" data-key="i">I</div>
+          <div class="key" data-key="o">O</div>
+          <div class="key" data-key="p">P</div>
+          <div class="key" data-key="[">[</div>
+          <div class="key" data-key="]">]</div>
+          <div class="key" data-key="\">\</div>
+        </div>
+        <!-- Row 3 (Home Row) -->
+        <div class="row">
+          <div class="key key-extra-wide" data-key="CapsLock">Caps</div>
+          <div class="key home-key" data-key="a">A</div>
+          <div class="key home-key" data-key="s">S</div>
+          <div class="key home-key" data-key="d">D</div>
+          <div class="key home-key" data-key="f">F <span class="bump">•</span></div>
+          <div class="key" data-key="g">G</div>
+          <div class="key" data-key="h">H</div>
+          <div class="key home-key" data-key="j">J <span class="bump">•</span></div>
+          <div class="key home-key" data-key="k">K</div>
+          <div class="key home-key" data-key="l">L</div>
+          <div class="key home-key" data-key=";">;</div>
+          <div class="key" data-key="'">'</div>
+          <div class="key key-extra-wide" data-key="Enter">Enter</div>
+        </div>
+        <!-- Row 4 -->
+        <div class="row">
+          <div class="key key-max" data-key="Shift">Shift</div>
+          <div class="key" data-key="z">Z</div>
+          <div class="key" data-key="x">X</div>
+          <div class="key" data-key="c">C</div>
+          <div class="key" data-key="v">V</div>
+          <div class="key" data-key="b">B</div>
+          <div class="key" data-key="n">N</div>
+          <div class="key" data-key="m">M</div>
+          <div class="key" data-key=",">,</div>
+          <div class="key" data-key=".">.</div>
+          <div class="key" data-key="/">/</div>
+          <div class="key key-max" data-key="Shift">Shift</div>
+        </div>
+        <!-- Row 5 -->
+        <div class="row">
+          <div class="key space-key" data-key=" ">Space</div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- LESSON COMPLETE MODAL -->
+    <div id="result-modal" class="modal hidden">
+      <div class="modal-content">
+        <h2>Lesson Completed! 🎉</h2>
+        <div class="stars-earned" id="stars-display">
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+        </div>
+        <div class="modal-stats">
+          <p>Speed: <b id="final-wpm">0</b> WPM</p>
+          <p>Accuracy: <b id="final-accuracy">0</b>%</p>
+        </div>
+        <div class="modal-actions">
+          <button id="btn-next-lesson" class="btn-primary">Next Lesson <i class="fa-solid fa-arrow-right"></i></button>
+          <button id="btn-retry" class="btn-secondary">Try Again <i class="fa-solid fa-rotate-right"></i></button>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
